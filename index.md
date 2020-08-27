@@ -1,48 +1,45 @@
-# AspNetCore.Identity.Localization
+# Asp.Net Core 2.2 MVC + Identity 正體中文化 / 多國語言 範例程式
 
 [![Build Status](https://skyworkertech.visualstudio.com/jayskyworker/_apis/build/status/JaySkyworker.AspNetCore.Identity.Localization?branchName=master)](https://skyworkertech.visualstudio.com/jayskyworker/_build/latest?definitionId=1&branchName=master)
 
-It is quick and simple to create an english web app with Identity 
-using Asp.Net Core Mvc 2.2 .
-However, if you want to develop a non-english app, you will find many 
-obstacles prevent you to have the same experiences.
+Asp.net Core 2.2 MVC 在使用預設英文的情況下，可以快速建立預設應用程式。
+但是一旦你想要正體中文化 / 多國語言，你會發現許多預設錯誤訊息等等，需要大量的程式改寫
+，及無法使用共用的 資源。
 
-With many project demonstrate how to localized it, we need a more complete
-solution for most of the issues, especially for error messages.
+這範例程式 提供一個比較完整的解決方案，特別是 錯誤訊息的 共用部分。
 
-Enjoy!
+希望能幫助到你!
 
-> **NOTE**: Not all UI text are localized!
+> **注意**: 不是所有介面文字都有中文翻譯!
 > 
-> Some less essential pages are not localized, You should use the same method to localize it.
+> 一些比較不常用的View/Page 並沒有翻譯, 請依照這些範例自行補足你需要的部分.
 
-## General Localization
+## 一般 Localization
 
-Please have basic knowledge of Localization
+請具備 Localization 的一般知識。
 
-https://docs.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-2.2
+https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/localization?view=aspnetcore-2.2
 
-## Basic setup for Localization
+## Localization 基本設定
 
-See this [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/a4bd2312f0a14090b6f74d667888822cf32dd93b).
+參考這個  [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/a4bd2312f0a14090b6f74d667888822cf32dd93b).
 
-- In `Starup.cs`
-  - Added `RequestLocalizationOptions` and `supportedCultures`.
-  - Added `app.UseRequestLocalization()`
-- Added `_SelectLanguagePartial.cshtml` and `SetLanguageController.cs` for a simple UI
-  Language selector.
+- 在 `Starup.cs`
+  - 增加 `RequestLocalizationOptions` 及 `supportedCultures`.
+  - 增加 `app.UseRequestLocalization()`
+- 增加 `_SelectLanguagePartial.cshtml` 及 `SetLanguageController.cs` 讓介面有一個簡易的語系選擇 下拉選單。
 
 
 ## View / Page / Controller Localization
 
-There are many ways to Localized these general text, I choose to use original english text as Key 
-to the resources for quick english fall back.
+一般性文字 有許多種 方法 讓他可以多國語系，我選擇原始英文當作 Resources 的 Key ，
+這樣即使找不到對應的語系也會呈現英文。
 
-See this [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/989fce76be2bcf71862976c5a2b3b2459e533af9)
- and this [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/ba281e355c426634b022f050c0b593618874ffb2)
+參考這個 [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/989fce76be2bcf71862976c5a2b3b2459e533af9)
+ 及這個[commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/ba281e355c426634b022f050c0b593618874ffb2)
 .
 
-Ref:
+參考:
 
 * https://damienbod.com/2018/07/03/adding-localization-to-the-asp-net-core-identity-pages/
 
@@ -50,21 +47,22 @@ Ref:
 
 ## Model / DataAnnotation Localization
 
-For Models and DataAnnotations with assigned text, Ex:
+Models 及 DataAnnotations 中 有設定文字的，例如：
 ```csharp
     [Display(Name = "Confirm password")]
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     public string ConfirmPassword { get; set; }
 ```
-Use `DataAnnotationsLocalization` to localize it, 
-However this does NOT localize default display name and default ErrorMessages.
-I will cover it in next section.
+使用 `DataAnnotationsLocalization` 來達成多國語系， 
+但是 這對 預設 的 display name 跟 ErrorMessages 並無作用，
+我在下面章節另外做。
 
-See this [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/7c706dab8494c118f0a4c8e7d7522ba705a7467f).
 
-- In `Starup.cs`
-  - Added `.AddDataAnnotationsLocalization()` after `AddMvc()`.
-- Added `DataAnnotationSharedResource.resx`.
+參考這個 [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/7c706dab8494c118f0a4c8e7d7522ba705a7467f).
+
+- 在 `Starup.cs`
+  - 在 `AddMvc()` 之後，增加 `.AddDataAnnotationsLocalization()` 
+- 增加 `DataAnnotationSharedResource.resx`.
 
 ### ConventionalMetadataProviders
 
@@ -73,32 +71,30 @@ See this [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localizati
     [EmailAddress]
     public string Email { get; set; }
 ```
-Default Display name for `Email` and 
-Default ErrorMessages for `[Required]`, `[EmailAddress]` and etc. 
-can be localized by `.ModelMetadataDetailsProviders`
+`Email` 預設的名稱 Display name 及
+`[Required]`, `[EmailAddress]` 等等 的預設錯誤訊息 使用 `.ModelMetadataDetailsProviders` 來達成多國語系。
 
-See this [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/326b72d08d83fd7ef8b52795c63a55cf5d5eaa22)
-and this [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/20d2b24716c3eb194d9de68484d939e27bf5c2bc)
+參考這個[commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/326b72d08d83fd7ef8b52795c63a55cf5d5eaa22)
+及這個 [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/20d2b24716c3eb194d9de68484d939e27bf5c2bc)
 .
 
-- In `Starup.cs`
-  - Added `ConventionalDisplayMetadataProvider`, `ConventionalValidationMetadataProvider`  and related classes.
-  - In Mvc Options, Added `options.SetConventionalMetadataProviders()` to Init.
-- Added `ValidationMetadataSharedResource.resx` for Validation ErrorMessages.
-- Added `DisplayMetadataSharedResource.resx` for Display name.
+- 在 `Starup.cs`
+  - 增加 `ConventionalDisplayMetadataProvider`, `ConventionalValidationMetadataProvider`  跟其他 相關的 classes.
+  - 在 Mvc Options, 增加 `options.SetConventionalMetadataProviders()` .
+- 增加 `ValidationMetadataSharedResource.resx` 來對應 驗證失敗的 ErrorMessage.
+- 增加`DisplayMetadataSharedResource.resx` 來對應 Display name.
 
-Ref:
+參考:
 * https://github.com/ridercz/Altairis.ConventionalMetadataProviders
 
 #### ConventionalDisplayMetadataProvider
 
-For Display name, the provider is based on conventions and tries to 
-find resource key based on the following naming scheme:
+預設 Display name 的多國語系, 這個 provider 依照習慣的慣例 ( conventions ) 會自動尋找合適的 resource key，依照下方的順序:
 
 > [[Namespace_]TypeName_]PropertyName
 
-The provider will search resource key from more specific to less, 
-stopping on the first where it succeeds:
+這個 provider 會依照 精準度 高 到 低 依序尋找對應的 resource key， 
+一旦找到就會停止：
 
 - `App_Areas_Identity_Pages_Account_LoginModel_InputModel_Email`
 - `Areas_Identity_Pages_Account_LoginModel_InputModel_Email`
@@ -110,12 +106,12 @@ stopping on the first where it succeeds:
 
 #### ConventionalValidationMetadataProvider
 
-For Default Validation ErrorMessages, same rule applied:
+預設的 ErrorMessages 的多國語系, 跟規則跟前述一樣:
 
 > [[[Namespace_]TypeName_]PropertyName_]ValidatorType
 
-The provider will search resource key from more specific to less, 
-stopping on the first where it succeeds:
+這個 provider 會依照 精準度 高 到 低 依序尋找對應的 resource key， 
+一旦找到就會停止：
 
 - `App_Areas_Identity_Pages_Account_LoginModel_InputModel_Email_Required`
 - `Areas_Identity_Pages_Account_LoginModel_InputModel_Email_Required`
@@ -125,36 +121,36 @@ stopping on the first where it succeeds:
 - `Email_Required`
 - `Required`
 
-You should keep one message for each validation type for Default ErrorMessages.
-See [DefaultValidationMessages.resx](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/blob/feature/ConventionalMetadataProviders/Resources/DefaultValidationMessages.resx)
+你應該為各個 validation type 保留一個 預設的 ErrorMessages.
+查看 [DefaultValidationMessages.zh-TW.resx](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/blob/feature/ConventionalMetadataProviders/Resources/DefaultValidationMessages.zh-TW.resx)
 
-## Identity Validation Error Localization
+## Identity 相關驗證 錯誤訊息的 Localization
 
-Identity itself validates Password settings, etc. And generates some ErrorMessages that needs 
-to be localized.
+Identity 會驗證 密碼等等的設定. 我們需要為這些錯誤訊息做多國語系。
 
-See this [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/bae9cab2ac5684aa720de15adf379c8e7f4b46cc).
+參考這個 [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/bae9cab2ac5684aa720de15adf379c8e7f4b46cc).
 
-- Added `LocalizedIdentityErrorDescriber.cs` and `LocalizedIdentityErrorMessages.resx`.
-- In `Starup.cs`
-  - Added `.AddErrorDescriber<LocalizedIdentityErrorDescriber>()` next to `AddDefaultIdentity<IdentityUser>()`.
+- 增加 `LocalizedIdentityErrorDescriber.cs` and `LocalizedIdentityErrorMessages.resx`.
+- 在 `Starup.cs`
+  - 在 `AddDefaultIdentity<IdentityUser>()` 之後，增加 `.AddErrorDescriber<LocalizedIdentityErrorDescriber>()`.
 
-Ref:
+參考:
 
 * http://www.ziyad.info/en/articles/20-Localizing_Identity_Error_Messages
 
 * https://stackoverflow.com/questions/19961648/how-to-localize-asp-net-identity-username-and-password-error-messages
 
 
-## How to contribute a translation
-Language contributions are welcome!
+## 如何提供翻譯
+歡迎你提供其他多國語系的翻譯!
 
-**How to submit a new translation:**
+**如何提交新的翻譯:**
 
 1. Fork the repo.
-1. Create resource files for the language you want to translate.
-1. Translate it (obviously).
-1. Add the new language to the `supportedCultures` list before `zu-ZA` in `Startup.cs`.
-1. Open a pull request.
+1. 新增你要翻譯的語系的 resource 檔案.
+1. 翻譯它 ( ^_^ ).
+1. 在`Startup.cs` 的 `supportedCultures` 清單中 新增你的語系，在 `zu-ZA` 之前.
+1. 開一個 pull request.
 
-I will do my best to integrate PR as fast as possible.
+我會盡快處理，謝謝.
+
