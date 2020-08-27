@@ -1,9 +1,9 @@
-# Asp.Net Core 2.2 MVC + Identity 正體中文化 / 多國語言 範例程式
+# Asp.Net Core 2.2 MVC + Identity 正體中文化 / 多國語系 範例程式
 
 [![Build Status](https://skyworkertech.visualstudio.com/jayskyworker/_apis/build/status/JaySkyworker.AspNetCore.Identity.Localization?branchName=master)](https://skyworkertech.visualstudio.com/jayskyworker/_build/latest?definitionId=1&branchName=master)
 
 Asp.net Core 2.2 MVC 在使用預設英文的情況下，可以快速建立預設應用程式。
-但是一旦你想要正體中文化 / 多國語言，你會發現許多預設錯誤訊息等等，需要大量的程式改寫
+但是一旦你想要正體中文化 / 多國語系，你會發現許多預設錯誤訊息等等，需要大量的程式改寫
 ，及無法使用共用的 資源。
 
 這範例程式 提供一個比較完整的解決方案，特別是 錯誤訊息的 共用部分。
