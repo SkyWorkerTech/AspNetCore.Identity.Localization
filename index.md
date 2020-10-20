@@ -74,7 +74,8 @@ Models 及 DataAnnotations 中 有設定文字的，例如：
 `Email` 預設的名稱 Display name 及
 `[Required]`, `[EmailAddress]` 等等 的預設錯誤訊息 使用 `.ModelMetadataDetailsProviders` 來達成多國語系。
 
-參考這個[commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/326b72d08d83fd7ef8b52795c63a55cf5d5eaa22)
+參考 這個[commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/64e66eb79b6476e72918f97eb2aadd809421bda9)
+, 這個[commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/326b72d08d83fd7ef8b52795c63a55cf5d5eaa22)
 及這個 [commit](https://github.com/JaySkyworker/AspNetCore.Identity.Localization/commit/20d2b24716c3eb194d9de68484d939e27bf5c2bc)
 .
 
